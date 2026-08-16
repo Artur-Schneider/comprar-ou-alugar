@@ -3,20 +3,13 @@ import { C, T } from '../lib/theme';
 
 export default function NInput({ label, val, set, pre, suf, step = "0.1", min = "0", ro = false, isDefault = false }) {
   const [foc, setFoc] = useState(false);
-  const showExampleTag = isDefault && !ro;
+  const showExampleMark = isDefault && !ro;
 
   return (
     <div className="min-w-0">
-      <label className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide mb-1 truncate" style={{ color: T.low }}>
+      <label className="block text-[10px] sm:text-xs font-medium uppercase tracking-wide mb-1 leading-tight" style={{ color: T.low }}>
         {label}
-        {showExampleTag && (
-          <span
-            className="normal-case tracking-normal font-semibold px-1.5 py-0.5 rounded-full flex-shrink-0"
-            style={{ fontSize: '9px', color: C.wood, backgroundColor: C.woodXl }}
-          >
-            exemplo
-          </span>
-        )}
+        {showExampleMark && <span className="ml-0.5 font-bold" style={{ color: C.wood }}>*</span>}
       </label>
       <div
         className="flex items-stretch rounded-lg overflow-hidden"
@@ -38,9 +31,9 @@ export default function NInput({ label, val, set, pre, suf, step = "0.1", min = 
           onBlur={() => setFoc(false)}
           className="flex-1 px-2 py-1.5 text-sm outline-none bg-transparent min-w-0 w-0"
           style={{
-            color: showExampleTag ? T.hint : T.high,
-            fontStyle: showExampleTag ? 'italic' : 'normal',
-            fontWeight: showExampleTag ? 400 : 500,
+            color: showExampleMark ? T.hint : T.high,
+            fontStyle: showExampleMark ? 'italic' : 'normal',
+            fontWeight: showExampleMark ? 400 : 500,
           }}
         />
         {suf && (

@@ -15,7 +15,8 @@ export default function ParamsPage({ p, upd, c, anos, defaults, priceWins, sacWi
           <p className="text-xs font-light leading-relaxed" style={{ color: T.med }}>
             Os campos abaixo já vêm preenchidos com <strong style={{ color: C.wood }}>valores de exemplo</strong>, próximos da
             realidade de mercado (taxa de juros, valorização do imóvel, rendimento de investimentos). Todos são editáveis —
-            os campos marcados como <em>exemplo</em> ficam com o texto em itálico até você digitar o seu próprio valor.
+            campos marcados com <strong style={{ color: C.wood }}>*</strong> ainda estão no valor de exemplo e aparecem em
+            itálico até você digitar o seu próprio valor.
           </p>
         </div>
 
@@ -25,7 +26,7 @@ export default function ParamsPage({ p, upd, c, anos, defaults, priceWins, sacWi
             <NInput label="Valor do Imóvel" val={p.vi} set={upd('vi')} pre="R$" step="5000" isDefault={p.vi === defaults.vi} />
             <NInput label="Valor da Entrada" val={p.ent} set={upd('ent')} pre="R$" step="5000" isDefault={p.ent === defaults.ent} />
             <NInput label="Valor Financiado" val={c.vf} set={() => {}} pre="R$" ro />
-            <NInput label="Valorização Anual do Imóvel" val={p.val} set={upd('val')} suf="% a.a." isDefault={p.val === defaults.val} />
+            <NInput label="Valorização do Imóvel" val={p.val} set={upd('val')} suf="% a.a." isDefault={p.val === defaults.val} />
           </div>
         </div>
 
@@ -51,7 +52,7 @@ export default function ParamsPage({ p, upd, c, anos, defaults, priceWins, sacWi
           </div>
           <div>
             <SectionHead icon="🔑" label="Aluguel & Investimento" />
-            <div className="grid grid-cols-3 gap-3 mb-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
               <NInput label="Aluguel Inicial" val={p.alg} set={upd('alg')} pre="R$" step="100" isDefault={p.alg === defaults.alg} />
               <NInput label="Reajuste Anual" val={p.rej} set={upd('rej')} suf="% a.a." isDefault={p.rej === defaults.rej} />
               <NInput label="Taxa de Investimento" val={p.ti} set={upd('ti')} suf="% a.m." step="0.01" isDefault={p.ti === defaults.ti} />
