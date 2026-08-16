@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.table-row:hover { background-color: rgba(2,32,88,0.04) !important; }
+.nav-btn:hover { opacity: .85 !important; }
+.export-opt:hover { background-color: rgba(2,32,88,0.06) !important; }
