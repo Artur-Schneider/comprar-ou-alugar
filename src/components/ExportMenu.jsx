@@ -14,13 +14,14 @@ export default function ExportMenu({ onExport }) {
   }, [open]);
 
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative flex-shrink-0" ref={ref}>
       <button
         onClick={() => setOpen(o => !o)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+        className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
         style={{ backgroundColor: open ? C.blue : C.blueXl, color: open ? C.white : T.high, border: `1.5px solid ${open ? C.blue : C.border}` }}
       >
-        <span>⬇</span> Exportar .xlsx
+        <span>⬇</span>
+        <span className="hidden sm:inline">Exportar .xlsx</span>
       </button>
       {open && (
         <div className="absolute right-0 mt-1 rounded-xl overflow-hidden z-30" style={{ backgroundColor: C.white, boxShadow: '0 8px 24px rgba(2,32,88,0.16)', border: `1px solid ${C.border}`, minWidth: 180 }}>

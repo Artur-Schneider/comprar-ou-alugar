@@ -9,7 +9,7 @@ export default function Header({ view, setView }) {
             Comprar ou Alugar um Imóvel?
           </h1>
           <p className="text-xs font-light hidden sm:block" style={{ color: C.woodOnDark }}>
-            Modelo Determinístico · Análise Financeira Imobiliária
+            Ferramenta Analítica · Projeto Final II
           </p>
         </div>
         <div className="flex items-center gap-1 rounded-xl p-1 flex-shrink-0" style={{ backgroundColor: 'rgba(255,255,255,0.14)' }}>

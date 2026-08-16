@@ -9,7 +9,7 @@ function TH({ children, accent }) {
   );
 }
 
-export default function ComparativeTable({ columns, rows }) {
+export default function ComparativeTable({ columns, rows, showAll }) {
   return (
     <div className="overflow-x-auto overflow-y-auto" style={{ maxHeight: 420 }}>
       <table className="w-full text-xs">
@@ -25,8 +25,14 @@ export default function ComparativeTable({ columns, rows }) {
           {rows.map((row, ri) => (
             <tr key={row.mes} className="table-row" style={{ backgroundColor: ri % 2 === 0 ? C.white : C.cream, borderBottom: `1px solid ${C.cream}` }}>
               <td className="px-3 py-2.5">
-                <div className="font-mono" style={{ color: T.low }}>Mês {row.mes}</div>
-                {row.mes % 12 === 0 && <div className="font-semibold" style={{ color: T.high }}>Ano {row.mes / 12}</div>}
+                {showAll ? (
+                  <>
+                    <div className="font-mono" style={{ color: T.low }}>Mês {row.mes}</div>
+                    {row.mes % 12 === 0 && <div className="font-semibold" style={{ color: T.high }}>Ano {row.mes / 12}</div>}
+                  </>
+                ) : (
+                  <div className="font-semibold" style={{ color: T.high }}>Ano {row.mes / 12}</div>
+                )}
               </td>
               {columns.map((col, i) => {
                 const color = typeof col.color === 'function' ? col.color(row) : col.color;

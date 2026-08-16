@@ -3,13 +3,13 @@ import { useSimulation } from './hooks/useSimulation';
 import { useActiveSection } from './hooks/useActiveSection';
 import { downloadXLSX, buildExportRows } from './lib/exportXlsx';
 import { C } from './lib/theme';
-import { SECTION_IDS, SECTION_THRESHOLDS } from './config/constants';
+import { SECTION_IDS, SECTION_THRESHOLDS, DEFAULT_PARAMS } from './config/constants';
 import Header from './components/Header';
 import ParamsPage from './pages/ParamsPage';
 import ResultsPage from './pages/ResultsPage';
 
 export default function App() {
-  const [p, sp] = useState({ vi: 400000, ent: 80000, tj: .87, pz: 360, val: 4, alg: 2000, rej: 6, ti: .9 });
+  const [p, sp] = useState(DEFAULT_PARAMS);
   const [view, setView] = useState('params');
   const [tab, setTab] = useState('price');
   const [showAll, setShowAll] = useState(false);
@@ -34,7 +34,7 @@ export default function App() {
       <div className="max-w-5xl mx-auto px-4 py-5">
         {view === 'params' && (
           <ParamsPage
-            p={p} upd={upd} c={c} anos={anos}
+            p={p} upd={upd} c={c} anos={anos} defaults={DEFAULT_PARAMS}
             priceWins={priceWins} sacWins={sacWins} rentWins={rentWins}
             onGoResults={() => setView('results')}
           />

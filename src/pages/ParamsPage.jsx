@@ -5,17 +5,27 @@ import SectionHead from '../components/SectionHead';
 import InsightBanner from '../components/InsightBanner';
 import Footer from '../components/Footer';
 
-export default function ParamsPage({ p, upd, c, anos, priceWins, sacWins, rentWins, onGoResults }) {
+export default function ParamsPage({ p, upd, c, anos, defaults, priceWins, sacWins, rentWins, onGoResults }) {
   return (
     <div className="space-y-4">
       <div className="rounded-2xl p-5 space-y-5" style={{ backgroundColor: C.white, boxShadow: '0 1px 4px rgba(2,32,88,0.08)' }}>
+
+        <div className="rounded-lg p-3 flex items-start gap-2.5" style={{ backgroundColor: C.woodXl, border: `1px solid ${C.woodBorder}` }}>
+          <span className="flex-shrink-0 text-sm mt-0.5" style={{ color: C.wood }}>💡</span>
+          <p className="text-xs font-light leading-relaxed" style={{ color: T.med }}>
+            Os campos abaixo já vêm preenchidos com <strong style={{ color: C.wood }}>valores de exemplo</strong>, próximos da
+            realidade de mercado (taxa de juros, valorização do imóvel, rendimento de investimentos). Todos são editáveis —
+            os campos marcados como <em>exemplo</em> ficam com o texto em itálico até você digitar o seu próprio valor.
+          </p>
+        </div>
+
         <div>
           <SectionHead icon="🏠" label="Imóvel" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <NInput label="Valor do Imóvel" val={p.vi} set={upd('vi')} pre="R$" step="5000" />
-            <NInput label="Valor da Entrada" val={p.ent} set={upd('ent')} pre="R$" step="5000" />
+            <NInput label="Valor do Imóvel" val={p.vi} set={upd('vi')} pre="R$" step="5000" isDefault={p.vi === defaults.vi} />
+            <NInput label="Valor da Entrada" val={p.ent} set={upd('ent')} pre="R$" step="5000" isDefault={p.ent === defaults.ent} />
             <NInput label="Valor Financiado" val={c.vf} set={() => {}} pre="R$" ro />
-            <NInput label="Valorização Anual do Imóvel" val={p.val} set={upd('val')} suf="% a.a." />
+            <NInput label="Valorização Anual do Imóvel" val={p.val} set={upd('val')} suf="% a.a." isDefault={p.val === defaults.val} />
           </div>
         </div>
 
@@ -25,8 +35,8 @@ export default function ParamsPage({ p, upd, c, anos, priceWins, sacWins, rentWi
           <div>
             <SectionHead icon="💳" label="Financiamento" />
             <div className="grid grid-cols-2 gap-3 mb-3">
-              <NInput label="Taxa de Juros" val={p.tj} set={upd('tj')} suf="% a.m." step="0.01" />
-              <NInput label="Prazo" val={p.pz} set={upd('pz')} suf="meses" step="12" min="12" />
+              <NInput label="Taxa de Juros" val={p.tj} set={upd('tj')} suf="% a.m." step="0.01" isDefault={p.tj === defaults.tj} />
+              <NInput label="Prazo" val={p.pz} set={upd('pz')} suf="meses" step="12" min="12" isDefault={p.pz === defaults.pz} />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="rounded-lg p-3" style={{ backgroundColor: C.cream }}>
@@ -42,9 +52,9 @@ export default function ParamsPage({ p, upd, c, anos, priceWins, sacWins, rentWi
           <div>
             <SectionHead icon="🔑" label="Aluguel & Investimento" />
             <div className="grid grid-cols-3 gap-3 mb-3">
-              <NInput label="Aluguel Inicial" val={p.alg} set={upd('alg')} pre="R$" step="100" />
-              <NInput label="Reajuste Anual" val={p.rej} set={upd('rej')} suf="% a.a." />
-              <NInput label="Taxa de Investimento" val={p.ti} set={upd('ti')} suf="% a.m." step="0.01" />
+              <NInput label="Aluguel Inicial" val={p.alg} set={upd('alg')} pre="R$" step="100" isDefault={p.alg === defaults.alg} />
+              <NInput label="Reajuste Anual" val={p.rej} set={upd('rej')} suf="% a.a." isDefault={p.rej === defaults.rej} />
+              <NInput label="Taxa de Investimento" val={p.ti} set={upd('ti')} suf="% a.m." step="0.01" isDefault={p.ti === defaults.ti} />
             </div>
             <InsightBanner icon="💡">
               Orçamento mensal = 1ª prestação SAC. O saldo não utilizado na prestação ou aluguel é investido mensalmente nos três cenários.
