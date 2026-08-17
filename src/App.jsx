@@ -10,10 +10,22 @@ import ResultsPage from './pages/ResultsPage';
 
 export default function App() {
   const [p, sp] = useState(DEFAULT_PARAMS);
+  const [touched, setTouched] = useState({});
   const [view, setView] = useState('params');
   const [tab, setTab] = useState('price');
   const [showAll, setShowAll] = useState(false);
-  const upd = k => v => sp(prev => ({ ...prev, [k]: v }));
+
+  const upd = k => v => {
+    sp(prev => ({ ...prev, [k]: v }));
+    setTouched(prev => (prev[k] ? prev : { ...prev, [k]: true }));
+  };
+
+  // Troca de guia sempre volta a página para o topo — tanto pelo botão do
+  // header quanto pelo "Ver Resultados →" na guia de Parâmetros.
+  const changeView = v => {
+    setView(v);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const c = useSimulation(p);
   const activeNav = useActiveSection(view === 'results', SECTION_IDS, SECTION_THRESHOLDS);
@@ -30,13 +42,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen" style={{ fontFamily: "'Poppins', sans-serif", backgroundColor: C.cream }}>
-      <Header view={view} setView={setView} />
+      <Header view={view} setView={changeView} />
       <div className="max-w-5xl mx-auto px-4 py-5">
         {view === 'params' && (
           <ParamsPage
-            p={p} upd={upd} c={c} anos={anos} defaults={DEFAULT_PARAMS}
+            p={p} upd={upd} c={c} anos={anos} touched={touched}
             priceWins={priceWins} sacWins={sacWins} rentWins={rentWins}
-            onGoResults={() => setView('results')}
+            onGoResults={() => changeView('results')}
           />
         )}
         {view === 'results' && (

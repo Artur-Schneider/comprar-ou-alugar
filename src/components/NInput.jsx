@@ -7,9 +7,8 @@ export default function NInput({ label, val, set, pre, suf, step = "0.1", min = 
 
   return (
     <div className="min-w-0">
-      <label className="block text-[10px] sm:text-xs font-medium uppercase tracking-wide mb-1 leading-tight" style={{ color: T.low }}>
-        {label}
-        {showExampleMark && <span className="ml-0.5 font-bold" style={{ color: C.wood }}>*</span>}
+      <label className="block text-[10px] font-medium uppercase mb-1 leading-tight" style={{ color: T.low }}>
+        {label}{showExampleMark && <span className="font-bold" style={{ color: C.wood }}>*</span>}
       </label>
       <div
         className="flex items-stretch rounded-lg overflow-hidden"

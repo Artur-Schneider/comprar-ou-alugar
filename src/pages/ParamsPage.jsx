@@ -5,7 +5,7 @@ import SectionHead from '../components/SectionHead';
 import InsightBanner from '../components/InsightBanner';
 import Footer from '../components/Footer';
 
-export default function ParamsPage({ p, upd, c, anos, defaults, priceWins, sacWins, rentWins, onGoResults }) {
+export default function ParamsPage({ p, upd, c, anos, touched, priceWins, sacWins, rentWins, onGoResults }) {
   return (
     <div className="space-y-4">
       <div className="rounded-2xl p-5 space-y-5" style={{ backgroundColor: C.white, boxShadow: '0 1px 4px rgba(2,32,88,0.08)' }}>
@@ -23,10 +23,10 @@ export default function ParamsPage({ p, upd, c, anos, defaults, priceWins, sacWi
         <div>
           <SectionHead icon="🏠" label="Imóvel" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <NInput label="Valor do Imóvel" val={p.vi} set={upd('vi')} pre="R$" step="5000" isDefault={p.vi === defaults.vi} />
-            <NInput label="Valor da Entrada" val={p.ent} set={upd('ent')} pre="R$" step="5000" isDefault={p.ent === defaults.ent} />
+            <NInput label="Valor do Imóvel" val={p.vi} set={upd('vi')} pre="R$" step="5000" isDefault={!touched.vi} />
+            <NInput label="Valor da Entrada" val={p.ent} set={upd('ent')} pre="R$" step="5000" isDefault={!touched.ent} />
             <NInput label="Valor Financiado" val={c.vf} set={() => {}} pre="R$" ro />
-            <NInput label="Valorização do Imóvel" val={p.val} set={upd('val')} suf="% a.a." isDefault={p.val === defaults.val} />
+            <NInput label="Valorização do Imóvel" val={p.val} set={upd('val')} suf="% a.a." isDefault={!touched.val} />
           </div>
         </div>
 
@@ -36,8 +36,8 @@ export default function ParamsPage({ p, upd, c, anos, defaults, priceWins, sacWi
           <div>
             <SectionHead icon="💳" label="Financiamento" />
             <div className="grid grid-cols-2 gap-3 mb-3">
-              <NInput label="Taxa de Juros" val={p.tj} set={upd('tj')} suf="% a.m." step="0.01" isDefault={p.tj === defaults.tj} />
-              <NInput label="Prazo" val={p.pz} set={upd('pz')} suf="meses" step="12" min="12" isDefault={p.pz === defaults.pz} />
+              <NInput label="Taxa de Juros" val={p.tj} set={upd('tj')} suf="% a.m." step="0.01" isDefault={!touched.tj} />
+              <NInput label="Prazo" val={p.pz} set={upd('pz')} suf="meses" step="12" min="12" isDefault={!touched.pz} />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="rounded-lg p-3" style={{ backgroundColor: C.cream }}>
@@ -53,9 +53,9 @@ export default function ParamsPage({ p, upd, c, anos, defaults, priceWins, sacWi
           <div>
             <SectionHead icon="🔑" label="Aluguel & Investimento" />
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
-              <NInput label="Aluguel Inicial" val={p.alg} set={upd('alg')} pre="R$" step="100" isDefault={p.alg === defaults.alg} />
-              <NInput label="Reajuste Anual" val={p.rej} set={upd('rej')} suf="% a.a." isDefault={p.rej === defaults.rej} />
-              <NInput label="Taxa de Investimento" val={p.ti} set={upd('ti')} suf="% a.m." step="0.01" isDefault={p.ti === defaults.ti} />
+              <NInput label="Aluguel Inicial" val={p.alg} set={upd('alg')} pre="R$" step="100" isDefault={!touched.alg} />
+              <NInput label="Reajuste Anual" val={p.rej} set={upd('rej')} suf="% a.a." isDefault={!touched.rej} />
+              <NInput label="Taxa de Investimento" val={p.ti} set={upd('ti')} suf="% a.m." step="0.01" isDefault={!touched.ti} />
             </div>
             <InsightBanner icon="💡">
               Orçamento mensal = 1ª prestação SAC. O saldo não utilizado na prestação ou aluguel é investido mensalmente nos três cenários.
