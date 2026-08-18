@@ -1,9 +1,11 @@
 export const HDR = 64;
 
-// Valores de exemplo com que a aplicação abre — próximos da realidade de
-// mercado (taxa de juros, valorização do imóvel, rendimento de investimentos).
+// Valores de exemplo com que a aplicação abre — calibrados com dados de
+// mercado de 2026: taxa média de financiamento SBPE (Abecip/Vitale),
+// valorização imobiliária (Índice FipeZAP), reajuste de aluguel (IPCA
+// 12 meses) e rendimento de investimentos (Selic/CDI pós-cortes do COPOM).
 export const DEFAULT_PARAMS = {
-  vi: 400000, ent: 80000, tj: 0.87, pz: 360, val: 4, alg: 2000, rej: 6, ti: 0.9,
+  vi: 400000, ent: 80000, tj: 0.90, pz: 360, val: 6, alg: 2000, rej: 4.5, ti: 0.9,
 };
 
 export const NAV = [

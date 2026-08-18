@@ -14,8 +14,7 @@ export default function ParamsPage({ p, upd, c, anos, touched, priceWins, sacWin
           <span className="flex-shrink-0 text-sm mt-0.5" style={{ color: C.wood }}>💡</span>
           <p className="text-xs font-light leading-relaxed" style={{ color: T.med }}>
             Os campos abaixo já vêm preenchidos com <strong style={{ color: C.wood }}>valores de exemplo</strong>, próximos da
-            realidade de mercado (taxa de juros, valorização do imóvel, rendimento de investimentos). Todos são editáveis —
-            campos marcados com <strong style={{ color: C.wood }}>*</strong> ainda estão no valor de exemplo e aparecem em
+            realidade de mercado, mas <strong style={{ color: C.wood }}>todos são editáveis.</strong><br></br>Campos marcados com <strong style={{ color: C.wood }}>*</strong> ainda estão no valor de exemplo e aparecem em
             itálico até você digitar o seu próprio valor.
           </p>
         </div>

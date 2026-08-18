@@ -1,9 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { C, T } from '../lib/theme';
 
 export default function NInput({ label, val, set, pre, suf, step = "0.1", min = "0", ro = false, isDefault = false }) {
   const [foc, setFoc] = useState(false);
+  const [raw, setRaw] = useState(String(val));
   const showExampleMark = isDefault && !ro;
+
+  // Campos somente leitura (ex.: "Valor Financiado") são recalculados por
+  // fora — o texto exibido precisa acompanhar esse valor sempre.
+  useEffect(() => {
+    if (ro) setRaw(String(val));
+  }, [val, ro]);
+
+  const handleChange = e => {
+    const next = e.target.value;
+    setRaw(next); // mostra exatamente o que foi digitado, incluindo vazio
+    const parsed = parseFloat(next);
+    set(Number.isNaN(parsed) ? 0 : parsed); // internamente, vazio = 0
+  };
 
   return (
     <div className="min-w-0">
@@ -21,11 +35,11 @@ export default function NInput({ label, val, set, pre, suf, step = "0.1", min = 
         )}
         <input
           type="number"
-          value={val}
+          value={ro ? val : raw}
           step={step}
           min={min}
           readOnly={ro}
-          onChange={e => !ro && set(parseFloat(e.target.value) || 0)}
+          onChange={e => !ro && handleChange(e)}
           onFocus={() => !ro && setFoc(true)}
           onBlur={() => setFoc(false)}
           className="flex-1 px-2 py-1.5 text-sm outline-none bg-transparent min-w-0 w-0"

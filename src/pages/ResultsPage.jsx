@@ -88,7 +88,18 @@ export default function ResultsPage({
               <XAxis dataKey="ano" label={{ value: 'Anos', position: 'insideBottom', offset: -12, fontSize: 11, fill: T.low }} tick={{ fontSize: isMobile ? 9 : 11, fill: T.low }} />
               <YAxis tickFormatter={isMobile ? fmtKCompact : fmtK} width={isMobile ? 40 : 88} tick={{ fontSize: isMobile ? 9 : 10, fill: T.low }} />
               <Tooltip content={<ChartTooltip />} />
-              <Legend wrapperStyle={{ fontSize: 11, paddingTop: 14 }} />
+              <Legend
+                wrapperStyle={{
+                  fontSize: 11,
+                  paddingTop: 14,
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap',
+                  rowGap: 4,
+                  columnGap: 12,
+                }}
+              />
               <Line type="monotone" dataKey="PRICE" stroke={C.blue} strokeWidth={2.5} dot={false} name="Financiamento PRICE" />
               <Line type="monotone" dataKey="SAC" stroke={C.blueLight} strokeWidth={2.5} dot={false} name="Financiamento SAC" strokeDasharray="7 3" />
               <Line type="monotone" dataKey="Aluguel" stroke={C.wood} strokeWidth={2.5} dot={false} name="Aluguel + Investimento" strokeDasharray="3 3" />
