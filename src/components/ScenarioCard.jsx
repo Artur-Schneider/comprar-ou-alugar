@@ -1,5 +1,5 @@
 import { C, T } from '../lib/theme';
-import { fmtK } from '../lib/format';
+import { fmt } from '../lib/format';
 import Badge from './Badge';
 
 export default function ScenarioCard({ label, accent, val, wins, subtitle, rows }) {
@@ -13,7 +13,7 @@ export default function ScenarioCard({ label, accent, val, wins, subtitle, rows 
     }}>
       <Badge show={wins} />
       <p className="text-xs font-medium" style={{ color: T.med }}>{label}</p>
-      <p className="text-2xl font-semibold mt-0.5" style={{ color: T.high }}>{fmtK(val)}</p>
+      <p className="text-lg sm:text-xl font-semibold mt-0.5" style={{ color: T.high }}>{fmt(val)}</p>
       <p className="text-xs font-light mt-0.5 mb-3" style={{ color: T.low }}>{subtitle}</p>
       <div className="space-y-1.5">
         {rows.map(({ l, v, vc }, i) => (

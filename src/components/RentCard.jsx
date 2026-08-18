@@ -1,5 +1,5 @@
 import { C, T } from '../lib/theme';
-import { fmtK } from '../lib/format';
+import { fmt } from '../lib/format';
 import Badge from './Badge';
 
 export default function RentCard({ wins, val, subRows }) {
@@ -11,9 +11,9 @@ export default function RentCard({ wins, val, subRows }) {
     }}>
       <Badge show={wins} />
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-        <div className="sm:w-52 flex-shrink-0">
+        <div className="sm:w-56 flex-shrink-0">
           <p className="text-xs font-medium" style={{ color: T.med }}>Aluguel + Investimento</p>
-          <p className="text-2xl font-semibold mt-0.5" style={{ color: T.high }}>{fmtK(val)}</p>
+          <p className="text-lg sm:text-xl font-semibold mt-0.5" style={{ color: T.high }}>{fmt(val)}</p>
           <p className="text-xs font-light mt-0.5" style={{ color: T.low }}>Investimentos acumulados</p>
         </div>
         <div className="hidden sm:block self-stretch w-px" style={{ backgroundColor: C.border }} />

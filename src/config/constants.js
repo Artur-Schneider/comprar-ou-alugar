@@ -5,7 +5,7 @@ export const HDR = 64;
 // valorização imobiliária (Índice FipeZAP), reajuste de aluguel (IPCA
 // 12 meses) e rendimento de investimentos (Selic/CDI pós-cortes do COPOM).
 export const DEFAULT_PARAMS = {
-  vi: 400000, ent: 80000, tj: 0.90, pz: 360, val: 6, alg: 2000, rej: 4.5, ti: 0.9,
+  vi: 400000, ent: 80000, tj: 0.95, pz: 360, val: 6, alg: 2000, rej: 4.5, ti: 0.9,
 };
 
 export const NAV = [

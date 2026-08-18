@@ -40,22 +40,22 @@ export default function ResultsPage({
               label="Financiamento PRICE" accent={C.blue} val={c.finalPRICE} wins={priceWins}
               subtitle="Imóvel valorizado + investimentos"
               rows={[
-                { l: 'Imóvel', v: fmtK(c.fpVal) },
-                { l: 'Investimentos', v: fmtK(c.PI.finalInv), vc: C.wood },
+                { l: 'Imóvel', v: fmt(c.fpVal) },
+                { l: 'Investimentos', v: fmt(c.PI.finalInv), vc: C.wood },
                 { l: 'Invest. mensal fixo', v: fmt(c.budget - c.P.pmt) },
-                { l: 'Total financiamento', v: fmtK(c.totPricePago) },
-                { l: 'Total juros', v: fmtK(c.P.totalJ), vc: T.low },
+                { l: 'Total financiamento', v: fmt(c.totPricePago) },
+                { l: 'Total juros', v: fmt(c.P.totalJ), vc: T.low },
               ]}
             />
             <ScenarioCard
               label="Financiamento SAC" accent={C.blueLight} val={c.finalSAC} wins={sacWins}
               subtitle="Imóvel valorizado + investimentos"
               rows={[
-                { l: 'Imóvel', v: fmtK(c.fpVal) },
-                { l: 'Investimentos', v: fmtK(c.SI.finalInv), vc: C.wood },
-                { l: 'Econ. juros vs PRICE', v: fmtK(c.P.totalJ - c.S.totalJ), vc: C.wood },
-                { l: 'Total financiamento', v: fmtK(c.totSACPago) },
-                { l: 'Total juros', v: fmtK(c.S.totalJ), vc: T.low },
+                { l: 'Imóvel', v: fmt(c.fpVal) },
+                { l: 'Investimentos', v: fmt(c.SI.finalInv), vc: C.wood },
+                { l: 'Econ. juros vs PRICE', v: fmt(c.P.totalJ - c.S.totalJ), vc: C.wood },
+                { l: 'Total financiamento', v: fmt(c.totSACPago) },
+                { l: 'Total juros', v: fmt(c.S.totalJ), vc: T.low },
               ]}
             />
           </div>
@@ -63,9 +63,9 @@ export default function ResultsPage({
           <RentCard
             wins={rentWins} val={c.R.finalPat}
             subRows={[
-              { l: 'Entrada (mês 0)', v: fmtK(p.ent) },
+              { l: 'Entrada (mês 0)', v: fmt(p.ent) },
               { l: 'Invest. inicial (mês 1)', v: fmt(c.budget - p.alg) },
-              { l: 'Total pago em aluguel', v: fmtK(c.R.totalAlg) },
+              { l: 'Total pago em aluguel', v: fmt(c.R.totalAlg) },
             ]}
           />
 
@@ -90,14 +90,9 @@ export default function ResultsPage({
               <Tooltip content={<ChartTooltip />} />
               <Legend
                 wrapperStyle={{
-                  fontSize: 11,
-                  paddingTop: 14,
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  flexWrap: 'wrap',
-                  rowGap: 4,
-                  columnGap: 12,
+                  fontSize: 11, paddingTop: 14, width: '100%',
+                  display: 'flex', justifyContent: 'center', flexWrap: 'wrap',
+                  rowGap: 4, columnGap: 12,
                 }}
               />
               <Line type="monotone" dataKey="PRICE" stroke={C.blue} strokeWidth={2.5} dot={false} name="Financiamento PRICE" />
