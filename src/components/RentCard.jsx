@@ -2,7 +2,7 @@ import { C, T } from '../lib/theme';
 import { fmt } from '../lib/format';
 import Badge from './Badge';
 
-export default function RentCard({ wins, val, subRows }) {
+export default function RentCard({ wins, val, subRows, pureGrowth }) {
   return (
     <div className="rounded-2xl p-4 mb-3" style={{
       borderLeft: `4px solid ${C.wood}`,
@@ -26,6 +26,12 @@ export default function RentCard({ wins, val, subRows }) {
           ))}
         </div>
       </div>
+      {pureGrowth && (
+        <p className="text-xs font-light mt-3 pt-3" style={{ color: T.low, borderTop: `1px solid ${C.cream}` }}>
+          💡 Como o orçamento ficaria menor que o aluguel, este cenário considera apenas o rendimento do valor
+          investido inicialmente — sem aportes mensais, já que o aluguel é pago com dinheiro de fora.
+        </p>
+      )}
     </div>
   );
 }

@@ -7,12 +7,23 @@ export function useSimulation(p) {
   return useMemo(() => {
     const { vi, ent, tj, pz, val, alg, rej, ti } = p;
     const vf = Math.max(0, vi - ent);
+    const isCashPurchase = vf <= 0; // entrada cobre o valor total do imóvel — só para a mensagem informativa
+
     const P = calcPRICE(vf, tj, pz);
     const S = calcSAC(vf, tj, pz);
-    const budget = S.pmt1;
+
+    // Sempre que a 1ª prestação SAC ficaria menor que o aluguel inicial, o
+    // orçamento sobe até o valor do aluguel (nunca compara com um teto
+    // menor do que a pessoa precisaria pagar de aluguel de qualquer forma).
+    const budgetFloored = alg > S.pmt1;
+    const budget = Math.max(S.pmt1, alg);
+
     const PI = calcBuyInv(P.rows, budget, ti);
     const SI = calcBuyInv(S.rows, budget, ti);
-    const R = calcRent(ent, alg, rej, pz, ti, budget);
+    // Nesses casos (budgetFloored), o cenário de aluguel vira rentabilidade
+    // pura: sem aporte mensal, sem retirada — só o rendimento da entrada.
+    const R = calcRent(ent, alg, rej, pz, ti, budget, budgetFloored);
+
     const fpVal = vi * Math.pow(1 + val / 100, pz / 12);
     const propAt = m => vi * Math.pow(1 + val / 100, m / 12);
     const step = Math.max(1, Math.ceil(pz / 100));
@@ -28,6 +39,7 @@ export function useSimulation(p) {
     }
     return {
       vf, P, S, PI, SI, R, fpVal,
+      isCashPurchase, budgetFloored,
       finalPRICE: fpVal + PI.finalInv,
       finalSAC: fpVal + SI.finalInv,
       chart, budget,

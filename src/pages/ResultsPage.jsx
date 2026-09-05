@@ -61,7 +61,7 @@ export default function ResultsPage({
           </div>
 
           <RentCard
-            wins={rentWins} val={c.R.finalPat}
+            wins={rentWins} val={c.R.finalPat} pureGrowth={c.budgetFloored}
             subRows={[
               { l: 'Entrada (mês 0)', v: fmt(p.ent) },
               { l: 'Invest. inicial (mês 1)', v: fmt(c.budget - p.alg) },
@@ -72,6 +72,7 @@ export default function ResultsPage({
           <BestOptionBanner
             priceWins={priceWins} sacWins={sacWins} bestLabel={bestLabel} bestVal={bestVal}
             anos={anos} budget={c.budget} priceInv={c.budget - c.P.pmt} rentBudgetStart={c.budget - p.alg}
+            pureGrowth={c.budgetFloored}
           />
         </div>
 

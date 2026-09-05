@@ -1,22 +1,20 @@
 import { useState, useEffect } from 'react';
 import { C, T } from '../lib/theme';
 
-export default function NInput({ label, val, set, pre, suf, step = "0.1", min = "0", ro = false, isDefault = false }) {
+export default function NInput({ label, val, set, pre, suf, step = "0.1", min = "0", max, ro = false, isDefault = false }) {
   const [foc, setFoc] = useState(false);
   const [raw, setRaw] = useState(String(val));
   const showExampleMark = isDefault && !ro;
 
-  // Campos somente leitura (ex.: "Valor Financiado") são recalculados por
-  // fora — o texto exibido precisa acompanhar esse valor sempre.
   useEffect(() => {
     if (ro) setRaw(String(val));
   }, [val, ro]);
 
   const handleChange = e => {
     const next = e.target.value;
-    setRaw(next); // mostra exatamente o que foi digitado, incluindo vazio
+    setRaw(next);
     const parsed = parseFloat(next);
-    set(Number.isNaN(parsed) ? 0 : parsed); // internamente, vazio = 0
+    set(Number.isNaN(parsed) ? 0 : parsed);
   };
 
   return (
@@ -38,6 +36,7 @@ export default function NInput({ label, val, set, pre, suf, step = "0.1", min = 
           value={ro ? val : raw}
           step={step}
           min={min}
+          max={max}
           readOnly={ro}
           onChange={e => !ro && handleChange(e)}
           onFocus={() => !ro && setFoc(true)}

@@ -14,8 +14,8 @@ export default function ParamsPage({ p, upd, c, anos, touched, priceWins, sacWin
           <span className="flex-shrink-0 text-sm mt-0.5" style={{ color: C.wood }}>💡</span>
           <p className="text-xs font-light leading-relaxed" style={{ color: T.med }}>
             Os campos abaixo já vêm preenchidos com <strong style={{ color: C.wood }}>valores de exemplo</strong>, próximos da
-            realidade de mercado, mas <strong style={{ color: C.wood }}>todos são editáveis.</strong><br></br>Campos marcados com <strong style={{ color: C.wood }}>*</strong> ainda estão no valor de exemplo e aparecem em
-            itálico até você digitar o seu próprio valor.
+            realidade de mercado, mas todos são editáveis. Campos marcados com <strong style={{ color: C.wood }}>*</strong>{' '}
+            ainda estão no valor de exemplo e aparecem em itálico até você digitar o seu próprio valor.
           </p>
         </div>
 
@@ -23,10 +23,15 @@ export default function ParamsPage({ p, upd, c, anos, touched, priceWins, sacWin
           <SectionHead icon="🏠" label="Imóvel" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <NInput label="Valor do Imóvel" val={p.vi} set={upd('vi')} pre="R$" step="5000" isDefault={!touched.vi} />
-            <NInput label="Valor da Entrada" val={p.ent} set={upd('ent')} pre="R$" step="5000" isDefault={!touched.ent} />
+            <NInput label="Valor da Entrada" val={p.ent} set={upd('ent')} pre="R$" step="5000" max={p.vi} isDefault={!touched.ent} />
             <NInput label="Valor Financiado" val={c.vf} set={() => {}} pre="R$" ro />
             <NInput label="Valorização do Imóvel" val={p.val} set={upd('val')} suf="% a.a." isDefault={!touched.val} />
           </div>
+          {c.isCashPurchase && (
+            <p className="text-xs font-light mt-2" style={{ color: T.med }}>
+              🏡 Entrada igual ao valor do imóvel — compra 100% à vista, sem financiamento.
+            </p>
+          )}
         </div>
 
         <div className="h-px" style={{ backgroundColor: C.cream }} />
@@ -44,7 +49,9 @@ export default function ParamsPage({ p, upd, c, anos, touched, priceWins, sacWin
                 <div className="text-sm font-semibold" style={{ color: T.high }}>{fmt(c.P.pmt)}</div>
               </div>
               <div className="rounded-lg p-3" style={{ backgroundColor: C.woodXl, border: `1.5px solid ${C.woodBorder}` }}>
-                <div className="text-xs font-semibold mb-0.5 leading-tight" style={{ color: T.med }}>Orçamento (1ª prestação SAC)</div>
+                <div className="text-xs font-semibold mb-0.5 leading-tight" style={{ color: T.med }}>
+                  {c.budgetFloored ? 'Orçamento (aluguel inicial)' : 'Orçamento (1ª prestação SAC)'}
+                </div>
                 <div className="text-sm font-semibold" style={{ color: T.high }}>{fmt(c.budget)}</div>
               </div>
             </div>
@@ -57,7 +64,8 @@ export default function ParamsPage({ p, upd, c, anos, touched, priceWins, sacWin
               <NInput label="Taxa de Investimento" val={p.ti} set={upd('ti')} suf="% a.m." step="0.01" isDefault={!touched.ti} />
             </div>
             <InsightBanner icon="💡">
-              Orçamento mensal = 1ª prestação SAC. O saldo não utilizado na prestação ou aluguel é investido mensalmente nos três cenários.
+              Orçamento mensal = 1ª prestação SAC, ou o aluguel inicial (o que for maior). O saldo não usado na
+              prestação ou aluguel é investido mensalmente nos três cenários.
             </InsightBanner>
           </div>
         </div>

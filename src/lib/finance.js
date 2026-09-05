@@ -41,15 +41,21 @@ export function calcBuyInv(financingRows, budget, txPct) {
   return { rows, finalInv: rows[rows.length - 1]?.invAcum ?? 0 };
 }
 
-export function calcRent(entrada, alg0, reajusteAnual, n, txPct, budget) {
+// pureGrowth: quando o orçamento (antes do piso) ficaria menor que o
+// aluguel — seja porque a compra é 100% à vista, seja porque a entrada é
+// alta demais — a pessoa paga o aluguel com dinheiro de fora. Não aporta
+// nem retira dos investimentos por causa dele: só o valor investido
+// inicialmente rende sozinho, servindo de comparação pura de rentabilidade.
+export function calcRent(entrada, alg0, reajusteAnual, n, txPct, budget, pureGrowth = false) {
   const r = txPct / 100;
   let pat = entrada, alg = alg0, totalAlg = 0;
   const rows = [];
   for (let m = 1; m <= n; m++) {
     if (m > 1 && (m - 1) % 12 === 0) alg *= (1 + reajusteAnual / 100);
-    pat = pat * (1 + r) + (budget - alg);
+    const inv = pureGrowth ? 0 : (budget - alg);
+    pat = pat * (1 + r) + inv;
     totalAlg += alg;
-    rows.push({ mes: m, aluguel: alg, inv: budget - alg, pat });
+    rows.push({ mes: m, aluguel: alg, inv, pat });
   }
   return { rows, totalAlg, finalPat: rows[n - 1]?.pat ?? 0 };
 }

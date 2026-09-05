@@ -16,12 +16,17 @@ export default function App() {
   const [showAll, setShowAll] = useState(false);
 
   const upd = k => v => {
-    sp(prev => ({ ...prev, [k]: v }));
+    sp(prev => {
+      const next = { ...prev, [k]: v };
+      // A entrada nunca pode ultrapassar o valor do imóvel.
+      if (k === 'ent' && next.ent > next.vi) next.ent = next.vi;
+      // Se o imóvel diminuir abaixo da entrada já digitada, a entrada acompanha.
+      if (k === 'vi' && next.ent > next.vi) next.ent = next.vi;
+      return next;
+    });
     setTouched(prev => (prev[k] ? prev : { ...prev, [k]: true }));
   };
 
-  // Troca de guia sempre volta a página para o topo — tanto pelo botão do
-  // header quanto pelo "Ver Resultados →" na guia de Parâmetros.
   const changeView = v => {
     setView(v);
     window.scrollTo({ top: 0, behavior: 'smooth' });
