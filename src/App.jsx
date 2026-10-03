@@ -16,14 +16,7 @@ export default function App() {
   const [showAll, setShowAll] = useState(false);
 
   const upd = k => v => {
-    sp(prev => {
-      const next = { ...prev, [k]: v };
-      // A entrada nunca pode ultrapassar o valor do imóvel.
-      if (k === 'ent' && next.ent > next.vi) next.ent = next.vi;
-      // Se o imóvel diminuir abaixo da entrada já digitada, a entrada acompanha.
-      if (k === 'vi' && next.ent > next.vi) next.ent = next.vi;
-      return next;
-    });
+    sp(prev => ({ ...prev, [k]: v }));
     setTouched(prev => (prev[k] ? prev : { ...prev, [k]: true }));
   };
 

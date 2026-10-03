@@ -25,9 +25,11 @@ export default function ParamsPage({ p, upd, c, anos, touched, priceWins, sacWin
           <SectionHead icon="🏠" label="Imóvel" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <NInput label="Valor do Imóvel" val={p.vi} set={upd('vi')} pre="R$" step="5000" isDefault={!touched.vi}
-              info="Preço total de compra do imóvel." />
+              info="Preço total de compra do imóvel."
+              onBlurValue={v => { if (p.ent > v) upd('ent')(v); }} />
             <NInput label="Valor da Entrada" val={p.ent} set={upd('ent')} pre="R$" step="5000" max={p.vi} isDefault={!touched.ent}
-              info="Valor pago à vista; o restante é financiado." />
+              info="Valor pago à vista; o restante é financiado."
+              onBlurValue={v => { if (v > p.vi) upd('ent')(p.vi); }} />
             <NInput label="Valor Financiado" val={c.vf} set={() => {}} pre="R$" ro
               info="Valor do imóvel menos a entrada — calculado automaticamente." />
             <NInput label="Valorização do Imóvel" val={p.val} set={upd('val')} suf="% a.a." isDefault={!touched.val}
@@ -66,13 +68,15 @@ export default function ParamsPage({ p, upd, c, anos, touched, priceWins, sacWin
           </div>
           <div>
             <SectionHead icon="🔑" label="Aluguel & Investimento" />
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
               <NInput label="Aluguel Inicial" val={p.alg} set={upd('alg')} pre="R$" step="100" isDefault={!touched.alg}
                 info="Valor do aluguel no primeiro mês da simulação." />
               <NInput label="Reajuste Anual" val={p.rej} set={upd('rej')} suf="% a.a." isDefault={!touched.rej}
                 info="Quanto o aluguel aumenta a cada 12 meses." />
-              <RateInput label="Taxa de Investimento" valMonthly={p.ti} setMonthly={upd('ti')} isDefault={!touched.ti}
-                info="Rendimento esperado ao investir o dinheiro não gasto com prestação ou aluguel." />
+              <div className="sm:col-span-2">
+                <RateInput label="Taxa de Investimento" valMonthly={p.ti} setMonthly={upd('ti')} isDefault={!touched.ti}
+                  info="Rendimento esperado ao investir o dinheiro não gasto com prestação ou aluguel." />
+              </div>
             </div>
             <InsightBanner icon="💡">
               Orçamento mensal = 1ª prestação SAC, ou o aluguel inicial (o que for maior). O saldo não usado na
