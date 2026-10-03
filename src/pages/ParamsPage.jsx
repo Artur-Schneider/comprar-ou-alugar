@@ -1,6 +1,7 @@
 import { C, T } from '../lib/theme';
 import { fmt, fmtK } from '../lib/format';
 import NInput from '../components/NInput';
+import RateInput from '../components/RateInput';
 import SectionHead from '../components/SectionHead';
 import InsightBanner from '../components/InsightBanner';
 import Footer from '../components/Footer';
@@ -14,18 +15,23 @@ export default function ParamsPage({ p, upd, c, anos, touched, priceWins, sacWin
           <span className="flex-shrink-0 text-sm mt-0.5" style={{ color: C.wood }}>💡</span>
           <p className="text-xs font-light leading-relaxed" style={{ color: T.med }}>
             Os campos abaixo já vêm preenchidos com <strong style={{ color: C.wood }}>valores de exemplo</strong>, próximos da
-            realidade de mercado, mas todos são editáveis. Campos marcados com <strong style={{ color: C.wood }}>*</strong>{' '}
-            ainda estão no valor de exemplo e aparecem em itálico até você digitar o seu próprio valor.
+            realidade de mercado, mas todos são editáveis — clique no "✕" para limpar um campo, ou no "i" para entender
+            o que cada um significa. Campos marcados com <strong style={{ color: C.wood }}>*</strong> ainda estão no
+            valor de exemplo e aparecem em itálico até você digitar o seu próprio valor.
           </p>
         </div>
 
         <div>
           <SectionHead icon="🏠" label="Imóvel" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <NInput label="Valor do Imóvel" val={p.vi} set={upd('vi')} pre="R$" step="5000" isDefault={!touched.vi} />
-            <NInput label="Valor da Entrada" val={p.ent} set={upd('ent')} pre="R$" step="5000" max={p.vi} isDefault={!touched.ent} />
-            <NInput label="Valor Financiado" val={c.vf} set={() => {}} pre="R$" ro />
-            <NInput label="Valorização do Imóvel" val={p.val} set={upd('val')} suf="% a.a." isDefault={!touched.val} />
+            <NInput label="Valor do Imóvel" val={p.vi} set={upd('vi')} pre="R$" step="5000" isDefault={!touched.vi}
+              info="Preço total de compra do imóvel." />
+            <NInput label="Valor da Entrada" val={p.ent} set={upd('ent')} pre="R$" step="5000" max={p.vi} isDefault={!touched.ent}
+              info="Valor pago à vista; o restante é financiado." />
+            <NInput label="Valor Financiado" val={c.vf} set={() => {}} pre="R$" ro
+              info="Valor do imóvel menos a entrada — calculado automaticamente." />
+            <NInput label="Valorização do Imóvel" val={p.val} set={upd('val')} suf="% a.a." isDefault={!touched.val}
+              info="Quanto o imóvel se valoriza, em média, por ano." />
           </div>
           {c.isCashPurchase && (
             <p className="text-xs font-light mt-2" style={{ color: T.med }}>
@@ -40,8 +46,10 @@ export default function ParamsPage({ p, upd, c, anos, touched, priceWins, sacWin
           <div>
             <SectionHead icon="💳" label="Financiamento" />
             <div className="grid grid-cols-2 gap-3 mb-3">
-              <NInput label="Taxa de Juros" val={p.tj} set={upd('tj')} suf="% a.m." step="0.01" isDefault={!touched.tj} />
-              <NInput label="Prazo" val={p.pz} set={upd('pz')} suf="meses" step="12" min="12" isDefault={!touched.pz} />
+              <RateInput label="Taxa de Juros" valMonthly={p.tj} setMonthly={upd('tj')} isDefault={!touched.tj}
+                info="Juros cobrados pelo banco no financiamento." />
+              <NInput label="Prazo" val={p.pz} set={upd('pz')} suf="meses" step="12" min="12" isDefault={!touched.pz}
+                info="Duração total do financiamento, em meses." />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="rounded-lg p-3" style={{ backgroundColor: C.cream }}>
@@ -59,9 +67,12 @@ export default function ParamsPage({ p, upd, c, anos, touched, priceWins, sacWin
           <div>
             <SectionHead icon="🔑" label="Aluguel & Investimento" />
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
-              <NInput label="Aluguel Inicial" val={p.alg} set={upd('alg')} pre="R$" step="100" isDefault={!touched.alg} />
-              <NInput label="Reajuste Anual" val={p.rej} set={upd('rej')} suf="% a.a." isDefault={!touched.rej} />
-              <NInput label="Taxa de Investimento" val={p.ti} set={upd('ti')} suf="% a.m." step="0.01" isDefault={!touched.ti} />
+              <NInput label="Aluguel Inicial" val={p.alg} set={upd('alg')} pre="R$" step="100" isDefault={!touched.alg}
+                info="Valor do aluguel no primeiro mês da simulação." />
+              <NInput label="Reajuste Anual" val={p.rej} set={upd('rej')} suf="% a.a." isDefault={!touched.rej}
+                info="Quanto o aluguel aumenta a cada 12 meses." />
+              <RateInput label="Taxa de Investimento" valMonthly={p.ti} setMonthly={upd('ti')} isDefault={!touched.ti}
+                info="Rendimento esperado ao investir o dinheiro não gasto com prestação ou aluguel." />
             </div>
             <InsightBanner icon="💡">
               Orçamento mensal = 1ª prestação SAC, ou o aluguel inicial (o que for maior). O saldo não usado na
