@@ -11,8 +11,6 @@ export default function NInput({ label, val, set, pre, suf, step = "0.1", min = 
   useEffect(() => {
     if (ro) { setRaw(String(val)); return; }
     if (val !== lastOwnValue.current) {
-      // Mudança vinda de fora (ex.: ajuste automático feito por outro
-      // campo) — sincroniza o texto exibido para não ficar desatualizado.
       setRaw(String(val));
       lastOwnValue.current = val;
     }
@@ -34,8 +32,8 @@ export default function NInput({ label, val, set, pre, suf, step = "0.1", min = 
   };
 
   return (
-    <div className="min-w-0 relative">
-      <div className="flex items-center gap-1 mb-1">
+    <div className="min-w-0">
+      <div className="flex items-center gap-1 mb-1 relative">
         <label className="text-[10px] font-medium uppercase leading-tight" style={{ color: T.low }}>
           {label}{showExampleMark && <span className="font-bold" style={{ color: C.wood }}>*</span>}
         </label>

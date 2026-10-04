@@ -35,8 +35,8 @@ export default function RateInput({ label, valMonthly, setMonthly, isDefault = f
   const togglePeriod = () => setPeriod(prev => (prev === 'mes' ? 'ano' : 'mes'));
 
   return (
-    <div className="min-w-0 relative">
-      <div className="flex items-center gap-1 mb-1">
+    <div className="min-w-0">
+      <div className="flex items-center gap-1 mb-1 relative">
         <label className="text-[10px] font-medium uppercase leading-tight" style={{ color: T.low }}>
           {label}{showExampleMark && <span className="font-bold" style={{ color: C.wood }}>*</span>}
         </label>
